@@ -7,14 +7,18 @@
 
 
 #include "Entity.h"
+#include "Movable.h"
 
-class Player : public Entity {
+class Player : public Movable, public Entity {
 public:
-	Player(float w, float h, sf::Vector2f pos, sf::Color c);
+	Player(sf::Vector2f pos, sf::Color c);
 	~Player() = default;
 
 	void update();
+	void movement();
+
 private:
+	//void move();
 };
 
 

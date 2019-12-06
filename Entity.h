@@ -7,23 +7,24 @@
 
 
 #include <SFML/System.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics.hpp>
 
-class Entity {
+class Entity : public sf::Sprite {
 public:
 	Entity();
-	Entity(float w, float h, sf::Vector2f pos, sf::Color c);
+	Entity(int w, int h, sf::Vector2f pos, sf::Color c);
 
-	virtual ~Entity() = 0;
-
+	//virtual ~Entity() = 0;
+	~Entity() = default;
 	virtual void update() = 0;
 
 protected:
-	float width{};
-	float height{};
+	int width{};
+	int height{};
 	sf::Vector2f position{};
-	sf::RectangleShape shape{};
 	sf::Color color{};
+
+
 };
 
 

@@ -3,7 +3,10 @@
 //
 
 #include "Entity.h"
-Entity::Entity(float w, float h, sf::Vector2f pos, sf::Color c)
-	: width{w}, height{h}, position{pos}, color{c}
-	{}
+Entity::Entity(int w, int h, sf::Vector2f pos, sf::Color c)
+	: sf::Sprite(sf::Texture{}, sf::IntRect(sf::Vector2<int>(0,0), sf::Vector2(w,h))), width{w}, height{h}
+	{
+		this->setPosition(pos);
+		this->setColor(c);
+	}
 Entity::Entity() {}

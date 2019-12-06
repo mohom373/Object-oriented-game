@@ -1,0 +1,11 @@
+Skapa movable interface (får inte ha variabler)
+Lägg physicsobject i entity
+två constructors, en med physicsobject och en med default värden.
+
+
+I update för Play_State gå igenom movables och kolla om de kolliderar med någon annat och om det är true
+Berätta för entity som kolliderade att de kolliderade med varandra.
+
+
+// TODO  for next time
+Create ball class

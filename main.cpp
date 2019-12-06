@@ -1,27 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "Play_State.h"
+#include "Constants.h"
 
 int main()
 {
-	unsigned int window_width = 600;
-	unsigned int window_height = 1000;
-	sf::RenderWindow window(sf::VideoMode(window_width, window_height), "SFML works!");
-	sf::CircleShape shape(70.f);
-	shape.setFillColor(sf::Color::Green);
+	unsigned int window_width = WINDOW_WIDTH;
+	unsigned int window_height = WINDOW_HEIGHT;
+	sf::RenderWindow *window = new sf::RenderWindow(sf::VideoMode(window_width, window_height), "SFML works!");
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-		}
+	Play_State play(window);
 
-		window.clear();
-		window.draw(shape);
-		window.display();
-	}
+	play.start_game();
 
+	delete window;
 	return 0;
 }
