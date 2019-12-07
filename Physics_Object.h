@@ -14,6 +14,9 @@ public:
 	float get_x_speed();
 	float get_y_speed();
 
+	void set_x_speed(float x_sp);
+	void set_y_speed(float y_sp);
+
 private:
 	float x_speed{};
 	float y_speed{};

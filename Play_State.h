@@ -6,6 +6,7 @@
 #define BALLGAME_PLAY_STATE_H
 
 
+#include <memory>
 #include "Ball.h"
 #include "Point_Zone.h"
 #include "Player.h"
@@ -25,12 +26,17 @@ private:
 	//std::shared_ptr<sf::RenderWindow> window_ptr;
 
 	sf::RenderWindow *game_window;
-	std::vector<Ball> ball_container;
+	//std::vector<Ball> ball_container;
+	std::shared_ptr<Entity> ball;
 	//Player player;
-	std::unique_ptr<Player> player;
+	std::shared_ptr<Entity> player;
 	std::vector<Point_Zone> point_zone_container;
-	Dead_Zone dead_zone;
+
+	//Dead_Zone dead_zone;
 	std::vector<Power_Up> power_up_container;
+
+
+	std::vector<std::shared_ptr<Entity>> entity{};
 };
 
 

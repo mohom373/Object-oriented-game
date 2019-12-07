@@ -13,7 +13,8 @@ class Entity : public sf::Sprite {
 public:
 	Entity();
 	Entity(int w, int h, sf::Vector2f pos, sf::Color c);
-
+	Entity(const Entity&) = delete;
+	Entity&operator=(const Entity&) = delete;
 	//virtual ~Entity() = 0;
 	~Entity() = default;
 	virtual void update() = 0;
@@ -21,8 +22,8 @@ public:
 protected:
 	int width{};
 	int height{};
-	sf::Vector2f position{};
-	sf::Color color{};
+	//sf::Vector2f position{};
+	//sf::Color color{};
 
 
 };

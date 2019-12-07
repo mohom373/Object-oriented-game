@@ -6,7 +6,20 @@
 #define BALLGAME_BALL_H
 
 
-class Ball {
+#include "Entity.h"
+#include "Movable.h"
+
+class Ball : public Movable, public Entity{
+public:
+	Ball(sf::Vector2f pos, sf::Color c);
+	~Ball() = default;
+
+
+	void update();
+	void handle_collision(sf::Vector2f position);
+
+private:
+	void movement();
 
 };
 

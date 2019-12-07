@@ -12,12 +12,14 @@
 class Player : public Movable, public Entity {
 public:
 	Player(sf::Vector2f pos, sf::Color c);
+	Player(const Player&) = delete;
+	Player&operator=(const Player&) = delete;
 	~Player() = default;
 
 	void update();
-	void movement();
 
 private:
+	void movement();
 	//void move();
 };
 
