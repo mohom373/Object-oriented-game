@@ -24,8 +24,8 @@ void Player::movement(){
 	}
 
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
-		 sf::Keyboard::isKeyPressed(sf::Keyboard::D)) && (position.x <=
-														  WINDOW_WIDTH-width))
+		 sf::Keyboard::isKeyPressed(sf::Keyboard::D)) &&
+		 (position.x <= WINDOW_WIDTH-width))
 	{
 		//setPosition()
 		position.x += physics_object.get_x_speed();

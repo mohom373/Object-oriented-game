@@ -17,6 +17,7 @@ public:
 	~Player() = default;
 
 	void update();
+	//void collision();
 
 private:
 	void movement();

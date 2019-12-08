@@ -23,9 +23,17 @@ void Ball::movement() {
 void Ball::handle_collision(sf::Vector2f position) {
 	//sf::Vector2f position = getPosition();
 
-	if (position.x < 0 || position.x > 590){
+	if (position.x < 0 || position.x > 590) {
 		physics_object.set_x_speed(-physics_object.get_x_speed());
 		//speed_x = -speed_x;
 	}
 
+	if (position.y < 0 ) {
+		physics_object.set_y_speed(- physics_object.get_y_speed());
+	}
+
+}
+
+void Ball::collision(Play_State &play_state) {
+	physics_object.set_y_speed(- physics_object.get_y_speed());
 }

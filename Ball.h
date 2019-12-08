@@ -6,8 +6,11 @@
 #define BALLGAME_BALL_H
 
 
+//#include "Play_State.h"
 #include "Entity.h"
 #include "Movable.h"
+
+class Play_State;
 
 class Ball : public Movable, public Entity{
 public:
@@ -16,9 +19,10 @@ public:
 
 
 	void update();
-	void handle_collision(sf::Vector2f position);
+	void collision(Play_State &play_state);
 
 private:
+	void handle_collision(sf::Vector2f position);
 	void movement();
 
 };

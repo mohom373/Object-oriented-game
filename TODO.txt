@@ -8,4 +8,10 @@ Berätta för entity som kolliderade att de kolliderade med varandra.
 
 
 // TODO  for next time
+Implement collision for dead_zone
+Comment code more
+
+// Done
+Create player class
 Create ball class
+Create dead_zone class

@@ -6,8 +6,17 @@
 #define BALLGAME_DEAD_ZONE_H
 
 
-class Dead_Zone {
+#include <SFML/Graphics.hpp>
+#include "Stationary.h"
+#include "Entity.h"
 
+class Dead_Zone : public Entity{
+public:
+	Dead_Zone(sf::Vector2f pos, sf::Color c);
+	~Dead_Zone() = default;
+
+	void update();
+	//void collision();
 };
 
 

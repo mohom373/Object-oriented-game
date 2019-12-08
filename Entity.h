@@ -18,6 +18,8 @@ public:
 	//virtual ~Entity() = 0;
 	~Entity() = default;
 	virtual void update() = 0;
+	//virtual void collision() = 0;
+	sf::FloatRect get_position();
 
 protected:
 	int width{};
