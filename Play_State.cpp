@@ -4,6 +4,7 @@
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics.hpp>
+#include <cstdlib>
 
 #include "Play_State.h"
 #include "Constants.h"
@@ -11,11 +12,11 @@
 Play_State::Play_State(sf::RenderWindow &w)
 		: window{w}
 {
-	player = std::make_unique<Player>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 100.0f, WINDOW_HEIGHT - 100.0f), sf::Color::Cyan);
-	ball.push_back(std::make_unique<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 150.0f), sf::Color::Magenta));
+	player = std::make_shared<Player>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 100.0f, WINDOW_HEIGHT - 100.0f), sf::Color::Cyan);
+	ball.push_back(std::make_shared<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 150.0f), sf::Color::Magenta, (rand() % 2)));
 	//ball.push_back(std::make_unique<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 40.0f), sf::Color::Blue));
 
-	dead_zone = std::make_unique<Dead_Zone>(sf::Vector2f(0.0f, WINDOW_HEIGHT - 25.0f), sf::Color::Red);
+	dead_zone = std::make_shared<Dead_Zone>(sf::Vector2f(0.0f, WINDOW_HEIGHT - 25.0f), sf::Color::Red);
 }
 
 void Play_State::start_game(){
