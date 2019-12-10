@@ -10,27 +10,28 @@ Player::Player(sf::Vector2f pos, sf::Color c)
 	{}
 
 void Player::update() {
-	this->movement();
+	sf::Vector2f position = getPosition();
+
+	this->movement(position);
+	setPosition(position);
+
 }
 
-void Player::movement(){
-	sf::Vector2f position = getPosition();
-	//float next_x = position.x
+void Player::movement(sf::Vector2f &position) {
+
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
 		 sf::Keyboard::isKeyPressed(sf::Keyboard::A)) &&
-		(position.x >= 0 ))
-	{
+		(position.x >= 0 )) {
 		 position.x -= physics_object.get_x_speed();
 	}
 
 	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
 		 sf::Keyboard::isKeyPressed(sf::Keyboard::D)) &&
-		 (position.x <= WINDOW_WIDTH-width))
-	{
-		//setPosition()
+		 (position.x <= WINDOW_WIDTH-width)) {
 		position.x += physics_object.get_x_speed();
 	}
+}
 
-	setPosition(position);
+void Player::collision(Play_State &play_state) {
 
 }

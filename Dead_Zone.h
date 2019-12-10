@@ -13,10 +13,13 @@
 class Dead_Zone : public Entity{
 public:
 	Dead_Zone(sf::Vector2f pos, sf::Color c);
-	~Dead_Zone() = default;
+	~Dead_Zone() override = default;
 
-	void update();
-	//void collision();
+	void update() override;
+	void collision(Play_State &play_state) override;
+
+private:
+
 };
 
 

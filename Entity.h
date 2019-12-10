@@ -9,6 +9,8 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
+class Play_State;
+
 class Entity : public sf::Sprite {
 public:
 	Entity();
@@ -16,9 +18,9 @@ public:
 	Entity(const Entity&) = delete;
 	Entity&operator=(const Entity&) = delete;
 	//virtual ~Entity() = 0;
-	~Entity() = default;
+	~Entity() override = default;
 	virtual void update() = 0;
-	//virtual void collision() = 0;
+	virtual void collision(Play_State &play_state) = 0;
 	sf::FloatRect get_position();
 
 protected:

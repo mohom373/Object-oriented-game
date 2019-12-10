@@ -9,6 +9,9 @@
 #include "Entity.h"
 #include "Movable.h"
 
+
+class Play_State;
+
 class Player : public Movable, public Entity {
 public:
 	Player(sf::Vector2f pos, sf::Color c);
@@ -16,12 +19,11 @@ public:
 	Player&operator=(const Player&) = delete;
 	~Player() = default;
 
-	void update();
-	//void collision();
+	void update() override;
+	void collision(Play_State &play_state) override;
 
 private:
-	void movement();
-	//void move();
+	void movement(sf::Vector2f &position) override;
 };
 
 

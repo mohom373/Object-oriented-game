@@ -6,12 +6,13 @@
 #define BALLGAME_MOVABLE_H
 
 
+#include <SFML/System.hpp>
 #include "Physics_Object.h"
 
 class Movable {
 public:
 	Movable(Physics_Object phys_obj): physics_object{phys_obj} {};
-	virtual void movement() = 0;
+	virtual void movement(sf::Vector2f &position ) = 0;
 
 protected:
 	Physics_Object physics_object;

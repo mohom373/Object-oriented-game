@@ -21,12 +21,16 @@ public:
 	~Play_State() = default;
 
 	void start_game();
-	void update();
+	void update(const std::vector<std::shared_ptr<Entity>> &ent);
 
-	void add_entity(std::shared_ptr<Entity> new_entity);
+	void add_entity(const std::shared_ptr<Entity> &new_entity);
 
 	void check_all_collision(std::vector<std::shared_ptr<Ball>> b);
-	//void render();
+	void render(sf::RenderWindow &w, const std::vector<std::shared_ptr<Entity>> &ent);
+
+	int get_lives();
+
+	void set_lives(int l);
 
 private:
 	sf::RenderWindow &window;
@@ -35,13 +39,14 @@ private:
 	//std::shared_ptr<Entity> ball{};
 	//Player player;
 	std::shared_ptr<Player> player{};
-	std::vector<Point_Zone> point_zone_container;
+	std::vector<std::shared_ptr<Point_Zone>> point_zone_container;
 
 	std::shared_ptr<Dead_Zone> dead_zone{};
-	std::vector<Power_Up> power_up_container;
-
+	std::vector<std::shared_ptr<Power_Up>> power_up_container;
 
 	std::vector<std::shared_ptr<Entity>> entity{};
+
+	int lives{};
 };
 
 

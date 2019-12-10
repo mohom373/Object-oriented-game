@@ -14,16 +14,17 @@ class Play_State;
 
 class Ball : public Movable, public Entity{
 public:
-	Ball(sf::Vector2f pos, sf::Color c, int rand_direction_decider);
+	Ball(sf::Vector2f pos, sf::Color c, int rand_direction_decipder);
 	~Ball() = default;
 
 
 	void update() override ;
-	void collision(Play_State &play_state);
+	void collision(Play_State &play_state) override;
+
 
 private:
 	void handle_collision(sf::Vector2f &position);
-	void movement();
+	void movement(sf::Vector2f &position) override;
 
 	int rand_direction_decider{};
 
