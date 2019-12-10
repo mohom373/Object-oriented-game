@@ -8,9 +8,11 @@
 #include "Constants.h"
 
 Ball::Ball(sf::Vector2f pos, sf::Color c,  int rand_direction_decider)
-	: Entity{20, 20, pos, c}, Movable{Physics_Object(1.0f, 1.0f)},
+	: Entity{20, 20, pos, c}, Movable{Physics_Object(8.0f, 8.0f)},
 		rand_direction_decider{rand_direction_decider}
-	{}
+	{
+		//std::cout << rand_direction_decider << std::endl;
+	}
 
 void Ball::update() {
 	sf::Vector2f position = getPosition();

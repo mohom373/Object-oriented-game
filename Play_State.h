@@ -12,6 +12,7 @@
 #include "Dead_Zone.h"
 #include "Power_Up.h"
 #include "Ball.h"
+#include "Triple_Ball.h"
 
 class Play_State {
 public:
@@ -32,6 +33,10 @@ public:
 
 	void set_lives(int l);
 
+	std::vector<std::shared_ptr<Ball>> get_ball();
+	void set_ball(std::shared_ptr<Ball> b);
+
+
 private:
 	sf::RenderWindow &window;
 	//sf::RenderWindow *game_window;
@@ -42,11 +47,12 @@ private:
 	std::vector<std::shared_ptr<Point_Zone>> point_zone_container;
 
 	std::shared_ptr<Dead_Zone> dead_zone{};
-	std::vector<std::shared_ptr<Power_Up>> power_up_container;
-
+	//std::vector<std::shared_ptr<Power_Up>> power_up_container;
+	std::vector<std::shared_ptr<Triple_Ball>> triple_ball;
 	std::vector<std::shared_ptr<Entity>> entity{};
 
 	int lives{};
+
 };
 
 

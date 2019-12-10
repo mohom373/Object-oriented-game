@@ -6,7 +6,7 @@
 #include "Constants.h"
 
 Player::Player(sf::Vector2f pos, sf::Color c)
-	: Entity{200, 20, pos, c}, Movable{Physics_Object(3.0f, 0)}
+	: Entity{200, 20, pos, c}, Movable{Physics_Object(8.0f, 0)}
 	{}
 
 void Player::update() {
