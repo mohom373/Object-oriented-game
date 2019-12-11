@@ -14,7 +14,7 @@ class Play_State;
 
 class Ball : public Movable, public Entity{
 public:
-	Ball(sf::Vector2f pos, sf::Color c, int rand_direction_decider);
+	Ball(sf::Vector2f pos, sf::Color c);
 	~Ball() = default;
 
 

@@ -8,9 +8,9 @@
 
 #include "Power_Up.h"
 
-class Triple_Ball : public  Entity{
+class Triple_Ball : public Power_Up{
 public:
-	Triple_Ball(sf::Vector2f pos, sf::Color c);
+	Triple_Ball(sf::Vector2f pos, sf::Color c, Power_Up_Interface &pow_up_i);
 	~Triple_Ball() = default;
 
 	void update() override;

@@ -7,8 +7,8 @@
 #include "Play_State.h"
 #include "Constants.h"
 
-Triple_Ball::Triple_Ball(sf::Vector2f pos, sf::Color c)
-	: Entity{100, 50, pos, c}
+Triple_Ball::Triple_Ball(sf::Vector2f pos, sf::Color c, Power_Up_Interface &pow_up_i)
+	: Power_Up{pos, c, 20, 20, power_up_interface}
 	{}
 
 void Triple_Ball::update() {
@@ -22,11 +22,11 @@ void Triple_Ball::collision(Play_State &play_state) {
 	play_state.get_ball().push_back(std::make_shared<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 150.0f),
 														   sf::Color::Magenta, 1));
 */
-	play_state.set_ball(std::make_shared<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 150.0f),
-											   sf::Color::Magenta, 0));
-	std::cout << play_state.get_ball().size() << std::endl;
-	/*for (auto &b: play_state.get_ball()) {
-		play_state.add_entity(b);
-	}*/
+	std::cout << "TRipel effetct "<< std::endl;
+	play_state.triple_ball_effect();
+
+	play_state.remove_power_up(TRIPLE_BALL_KEY);
+	//std::cout << play_state.get_ball().size() << std::endl;
+
 }
 

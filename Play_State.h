@@ -7,14 +7,16 @@
 
 
 #include <memory>
+#include <map>
 #include "Point_Zone.h"
 #include "Player.h"
 #include "Dead_Zone.h"
 #include "Power_Up.h"
 #include "Ball.h"
 #include "Triple_Ball.h"
+#include "Power_Up_Interface.h"
 
-class Play_State {
+class Play_State : public Power_Up_Interface{
 public:
 	Play_State() = default;
 	//Play_State(sf::RenderWindow *w);
@@ -26,33 +28,42 @@ public:
 
 	void add_entity(const std::shared_ptr<Entity> &new_entity);
 
-	void check_all_collision(std::vector<std::shared_ptr<Ball>> b);
+	void check_all_collision(std::vector<std::shared_ptr<Ball>> &b);
 	void render(sf::RenderWindow &w, const std::vector<std::shared_ptr<Entity>> &ent);
 
 	int get_lives();
 
 	void set_lives(int l);
 
-	std::vector<std::shared_ptr<Ball>> get_ball();
-	void set_ball(std::shared_ptr<Ball> b);
 
+	void triple_ball_effect() override;
+
+
+
+
+	void size_up_effect() override;
+
+	void remove_power_up(std::string key);
 
 private:
 	sf::RenderWindow &window;
 	//sf::RenderWindow *game_window;
-	std::vector<std::shared_ptr<Ball>> ball{};
+	std::vector<std::shared_ptr<Ball>> ball_container{};
 	//std::shared_ptr<Entity> ball{};
 	//Player player;
 	std::shared_ptr<Player> player{};
 	std::vector<std::shared_ptr<Point_Zone>> point_zone_container;
 
 	std::shared_ptr<Dead_Zone> dead_zone{};
-	//std::vector<std::shared_ptr<Power_Up>> power_up_container;
+	std::map<std::string, Power_Up*> power_up_map;
 	std::vector<std::shared_ptr<Triple_Ball>> triple_ball;
 	std::vector<std::shared_ptr<Entity>> entity{};
 
 	int lives{};
 
+	void create_ball();
+
+	void remove_balls(std::vector<int> &vector);
 };
 
 

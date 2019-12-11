@@ -6,12 +6,30 @@
 #include <iostream>
 #include "Ball.h"
 #include "Constants.h"
+#include <random>
 
-Ball::Ball(sf::Vector2f pos, sf::Color c,  int rand_direction_decider)
-	: Entity{20, 20, pos, c}, Movable{Physics_Object(8.0f, 8.0f)},
-		rand_direction_decider{rand_direction_decider}
+class Randomizer {
+public:
+	Randomizer() : device_(), engine_(device_()){};
+	int rnd(int a, int b) {
+		std::uniform_int_distribution<int> uni_dist(a, b);
+		return uni_dist(engine_);
+	};
+	double rnd(double a, double b) {
+		std::uniform_real_distribution<double> uni_dist(a, b);
+		return uni_dist(engine_);
+	};
+private:
+	std::random_device device_;
+	std::default_random_engine engine_;
+};
+
+Ball::Ball(sf::Vector2f pos, sf::Color c)
+	: Entity{20, 20, pos, c}, Movable{Physics_Object(4.0f, 4.0f)}
 	{
-		//std::cout << rand_direction_decider << std::endl;
+		auto randomizer = Randomizer();
+		int random_int = randomizer.rnd(0, 1);
+		this->rand_direction_decider = random_int;
 	}
 
 void Ball::update() {
@@ -25,31 +43,50 @@ void Ball::update() {
 
 void Ball::movement(sf::Vector2f &position) {
 
-	/*if (rand_direction_decider == 0) {
+	if (rand_direction_decider == 0) {
 		position.y += physics_object.get_y_speed();
-		position.x += physics_object.get_x_speed();
+		position.x += physics_object.get_x_speed() ;
 
 	} else if (rand_direction_decider == 1) {
 		position.y += physics_object.get_y_speed();
-		position.x -= physics_object.get_x_speed();
-	}*/
-
+		position.x -= physics_object.get_x_speed() ;
+	}
+/*
 	position.y += physics_object.get_y_speed();
-	position.x += physics_object.get_x_speed();
+	position.x += physics_object.get_x_speed();*/
 
 }
 
 void Ball::handle_collision(sf::Vector2f &position) {
 
-	if (position.x < 0 || position.x > 580) {
-		physics_object.set_x_speed(-physics_object.get_x_speed());
+	if (position.x < 0 || position.x + 20 > WINDOW_WIDTH) {
+		//setPosition(sf::Vector2f(getPosition().x, 11));
+		float next_speed = physics_object.get_x_speed();
+		float sign = -1*(next_speed > 0 ? 1 : -1);
+		next_speed = 4.0f * sign;
+		physics_object.set_x_speed(next_speed);
+
 	}
 
-	if (position.y < 0 ) {
-		physics_object.set_y_speed(- physics_object.get_y_speed());
+	if (position.y <= 10 ) {
+		//setPosition(sf::Vector2f(getPosition().x, 100));
+		position.y = 12;
+		float next_speed = physics_object.get_y_speed();
+		float sign = -1.0*(next_speed > 0 ? 1 : -1);
+		next_speed = 4.0f * sign;
+		physics_object.set_y_speed(next_speed);
 	}
 }
 
 void Ball::collision(Play_State &play_state) {
-	physics_object.set_y_speed(- physics_object.get_y_speed());
+	physics_object.set_y_speed(-(physics_object.get_y_speed() + 5) );
+	float pos_x = getPosition().x;
+	if(physics_object.get_x_speed() > 0) {
+		pos_x -= 10;
+	} else {
+		pos_x += 10;
+	}
+	setPosition(pos_x, getPosition().y);
+	physics_object.set_x_speed(- physics_object.get_x_speed());
+
 }
