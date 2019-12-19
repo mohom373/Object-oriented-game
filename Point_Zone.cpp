@@ -13,6 +13,6 @@ void Point_Zone::update() {
 }
 
 void Point_Zone::collision(Play_State &play_state) {
-	//points += 50;
-	//std::cout << points << std::endl;
+	points += 50;
+	std::cout << points << std::endl;
 }

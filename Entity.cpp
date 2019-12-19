@@ -12,7 +12,3 @@ Entity::Entity(int w, int h, sf::Vector2f pos, sf::Color c)
 		this->setColor(c);
 	}
 Entity::Entity() {}
-
-sf::FloatRect Entity::get_position() {
-	return this->getGlobalBounds();
-}

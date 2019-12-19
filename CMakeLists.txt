@@ -26,7 +26,7 @@ set(SOURCE_FILES main.cpp
         Power_Up.cpp Power_Up.h
         Triple_Ball.cpp Triple_Ball.h
         Constants.h
-        Physics_Object.cpp Physics_Object.h Power_Up_Interface.h)
+        Physics_Object.cpp Physics_Object.h Power_Up_Interface.h Randomizer.cpp Randomizer.h)
 # Säg till CMake att skapa en körbar fil som heter 'sfml '.
 add_executable(ballgame "${SOURCE_FILES}")
 # Länka med biblioteken som vi hittade tidigare.

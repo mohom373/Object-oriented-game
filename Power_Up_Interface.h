@@ -8,8 +8,6 @@
 class Power_Up_Interface {
 public:
 	virtual void triple_ball_effect() = 0;
-	virtual void size_up_effect() = 0;
-
 };
 
 

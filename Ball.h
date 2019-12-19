@@ -21,12 +21,13 @@ public:
 	void update() override ;
 	void collision(Play_State &play_state) override;
 
-
 private:
 	void handle_collision(sf::Vector2f &position);
 	void movement(sf::Vector2f &position) override;
 
 	int rand_direction_decider{};
+
+	float extra_speed{- 0.5f};
 
 };
 

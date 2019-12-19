@@ -13,23 +13,18 @@ class Play_State;
 
 class Entity : public sf::Sprite {
 public:
-	Entity();
+	Entity();	// Default constructor
 	Entity(int w, int h, sf::Vector2f pos, sf::Color c);
 	Entity(const Entity&) = delete;
 	Entity&operator=(const Entity&) = delete;
-	//virtual ~Entity() = 0;
-	~Entity() override = default;
-	virtual void update() = 0;
-	virtual void collision(Play_State &play_state) = 0;
-	sf::FloatRect get_position();
+	~Entity() override = default; // Default destructor
+
+	virtual void update() = 0; // Update entity
+	virtual void collision(Play_State &play_state) = 0; // Action after collision has been detected
 
 protected:
 	int width{};
 	int height{};
-	//sf::Vector2f position{};
-	//sf::Color color{};
-
-
 };
 
 
