@@ -38,14 +38,11 @@ public:
 
 
 private:
-	//sf::RenderWindow &window;
-
 	std::shared_ptr<Player> player{};
 	std::shared_ptr<Dead_Zone> dead_zone{};
 
 	std::vector<std::shared_ptr<Ball>> ball_container{};
 	std::vector<std::shared_ptr<Point_Zone>> point_zone_container;
-	std::vector<std::shared_ptr<Triple_Ball>> triple_ball;
 	std::vector<std::shared_ptr<Entity>> entity{};
 
 	std::map<std::string, Power_Up*> power_up_map;
@@ -56,6 +53,8 @@ private:
 	void remove_balls(std::vector<int> &vector);
 
 	void spawn_power_up(sf::Clock &clock);
+
+	void create_map();
 };
 
 

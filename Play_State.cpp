@@ -6,59 +6,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
 
 #include "Play_State.h"
 #include "Constants.h"
+#include "Randomizer.h"
 
-/*
-Play_State::Play_State(*/
-/*sf::RenderWindow &w*//*
-)
-		: //window{w}
-{
-	player = std::make_shared<Player>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 100.0f, WINDOW_HEIGHT - 100.0f),
-			sf::Color::White);
-
-	ball_container.push_back(std::make_shared<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 150.0f),
-			sf::Color::Magenta));
-
-	point_zone_container.push_back(std::make_shared<Point_Zone>( sf::Vector2f(0.0f, 0.0f),
-															   sf::Color::Cyan, 15, 150));
-	point_zone_container.push_back(std::make_shared<Point_Zone>( sf::Vector2f(250.0f, 0.0f),
-																 sf::Color::Green, 100, 15));
-	point_zone_container.push_back(std::make_shared<Point_Zone>( sf::Vector2f(WINDOW_WIDTH - 150.0f, 0.0f),
-																 sf::Color::Blue, 150, 15));
-
-	dead_zone = std::make_shared<Dead_Zone>(sf::Vector2f(0.0f, WINDOW_HEIGHT - 25.0f), sf::Color::Red);
-
-	power_up_map.insert({TRIPLE_BALL_KEY, new Triple_Ball(sf::Vector2f(100, 100),
-			sf::Color::Yellow,*this)});
-
-	lives = 3;
-}
-*/
-
-Play_State::Play_State(/*sf::RenderWindow &w*/)
-{
-	player = std::make_shared<Player>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 100.0f, WINDOW_HEIGHT - 100.0f),
-									  sf::Color::White);
-
-	ball_container.push_back(std::make_shared<Ball>(sf::Vector2f(WINDOW_WIDTH / 2.0f - 10.0f, 150.0f),
-													sf::Color::Magenta));
-
-	point_zone_container.push_back(std::make_shared<Point_Zone>( sf::Vector2f(0.0f, 0.0f),
-																 sf::Color::Cyan, 150, 15));
-	point_zone_container.push_back(std::make_shared<Point_Zone>( sf::Vector2f(250.0f, 0.0f),
-																 sf::Color::Green, 100, 15));
-	point_zone_container.push_back(std::make_shared<Point_Zone>( sf::Vector2f(WINDOW_WIDTH - 150.0f, 0.0f),
-																 sf::Color::Blue, 150, 15));
-
-	dead_zone = std::make_shared<Dead_Zone>(sf::Vector2f(0.0f, WINDOW_HEIGHT - 25.0f), sf::Color::Red);
-
-
-
-	lives = 3;
-}
+Play_State::Play_State()
+{}
 
 Play_State::~Play_State() {
 
@@ -67,32 +23,14 @@ Play_State::~Play_State() {
 
 }
 
-
-
 void Play_State::start_game(){
-	//sf::RenderWindow &w{this->window};
 	sf::RenderWindow w(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "B & G");
 
 	w.setVerticalSyncEnabled(true);
 	w.setFramerateLimit(60);
 
-	/*sf::Texture texture;
-	if(!texture.loadFromFile("ouf.png"))
-	{
-		std::cout << "ERROR COULD NOT OPEN FILE" << std::endl;
-	}
-	sf::Sprite background(texture);
-	*/
-
-	add_entity(player);
-
-	for (auto &p_z : point_zone_container) {
-		add_entity(p_z);
-	}
-
-	add_entity(dead_zone);
-
-
+	create_map();
+	lives = 3;
 
 	sf::Clock clock{};
 	while (w.isOpen())
@@ -103,6 +41,7 @@ void Play_State::start_game(){
 			if (event.type == sf::Event::Closed)
 				w.close();
 		}
+
 		// Update program logic here
 		this->check_all_collision(ball_container);
 
@@ -203,7 +142,6 @@ void Play_State::triple_ball_effect() {
 													  sf::Color::Magenta);
 	this->ball_container.push_back(b2);
 	this->ball_container.push_back(b3);
-	std::cout << ball_container.size() << std::endl;
 }
 
 void Play_State::remove_power_up(std::string key) {
@@ -225,16 +163,69 @@ void Play_State::remove_balls(std::vector<int> &vector) {
 }
 
 void Play_State::spawn_power_up(sf::Clock& clock) {
+
+	auto randomizer = Randomizer();
+	float random_x = randomizer.rnd(50.0, WINDOW_WIDTH - 200.0);
+	float random_y = randomizer.rnd(200.0, WINDOW_HEIGHT - 500.0);
+
 	auto elapsed = clock.getElapsedTime().asSeconds();
-	if(elapsed > 8) {
+	if(elapsed > 15) {
 		if (!power_up_map[TRIPLE_BALL_KEY]) {
-			power_up_map[TRIPLE_BALL_KEY] = new Triple_Ball(sf::Vector2f(100, 100), sf::Color::Yellow,*this);
+			power_up_map[TRIPLE_BALL_KEY] = new Triple_Ball(sf::Vector2f(random_x, random_y),
+					sf::Color::Yellow,*this);
 		}
 		clock.restart();
 	}
 }
 
+void Play_State::create_map(){
+	std::string file_name = "../map.txt";
+	std::ifstream infile{file_name};
+	if (!infile) {
+		std::cerr << "Could not open: " << file_name << " " << std::endl;
+	}
 
+	std::string line{};
+	while(infile >> line) {
+		std::istringstream iss(line);
+		std::string entity_type_name;
+		std::string val_x;
+		std::string val_y;
+
+		getline(iss, entity_type_name, '|');
+		getline(iss, val_x, ',');
+		getline(iss, val_y);
+
+		float float_x = std::stof(val_x);
+		float float_y = std::stof(val_y);
+
+		std::transform(entity_type_name.begin(), entity_type_name.end(), entity_type_name.begin(),
+					   [](unsigned char c){ return std::tolower(c); });
+
+		sf::Vector2f coordinates = sf::Vector2f(float_x, float_y);
+		if(entity_type_name == "player") {
+			player = std::make_shared<Player>(coordinates,
+											  sf::Color::White);
+			add_entity(player);
+
+		} else if (entity_type_name == "ball") {
+			ball_container.push_back(std::make_shared<Ball>(coordinates,
+															sf::Color::Magenta));
+
+		} else if (entity_type_name == "pointzone") {
+			point_zone_container.push_back(std::make_shared<Point_Zone>( coordinates,
+																		 sf::Color::Cyan, 150, 15));
+			for (auto &p_z : point_zone_container) {
+				add_entity(p_z);
+			}
+
+		} else if (entity_type_name == "deadzone") {
+			dead_zone = std::make_shared<Dead_Zone>(sf::Vector2f(float_x, float_y),
+					sf::Color::Red);
+			add_entity(dead_zone);
+		}
+	}
+}
 
 
 

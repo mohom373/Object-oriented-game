@@ -27,7 +27,7 @@ private:
 
 	int rand_direction_decider{};
 
-	float extra_speed{- 0.5f};
+	float extra_speed{- 3.5f};
 
 };
 

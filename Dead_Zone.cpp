@@ -15,6 +15,6 @@ void Dead_Zone::update() {
 }
 
 void Dead_Zone::collision(Play_State &play_state) {
-	std::cout << "IM BEING HIT!!!" << std::endl;
+	//std::cout << "IM BEING HIT!!!" << std::endl;
 	play_state.set_lives(play_state.get_lives() - 1);
 }

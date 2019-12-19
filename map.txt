@@ -1,3 +1,6 @@
- ###############
-
- ###############
+Player|200,900
+Ball|290,150
+PointZone|0,0
+PointZone|230,0
+PointZone|450,0
+DeadZone|0,975

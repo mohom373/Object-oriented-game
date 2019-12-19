@@ -11,7 +11,7 @@
 
 
 Ball::Ball(sf::Vector2f pos, sf::Color c)
-	: Entity{20, 20, pos, c}, Movable{Physics_Object(6.5f, 6.5f)}
+	: Entity{20, 20, pos, c}, Movable{Physics_Object(10.0f, 10.0f)}
 	{
 		auto randomizer = Randomizer();
 		int random_int = randomizer.rnd(0, 1);
@@ -62,23 +62,22 @@ void Ball::collision(Play_State &play_state) {
 	auto position = getPosition();
 	if (physics_object.get_y_speed() > 0 && physics_object.get_x_speed() < 0) {
 
-		setPosition(position.x + width * 0.5f , position.y - height * 1.45f);
+		setPosition(position.x + width * 0.5f , position.y - height * 1.05f);
 		physics_object.set_x_speed(-( physics_object.get_x_speed() - extra_speed ));
 		physics_object.set_y_speed(-( physics_object.get_y_speed()  ));
 
 
 	} else if (physics_object.get_y_speed() > 0 && physics_object.get_x_speed() > 0){
-		setPosition(position.x - width * 0.5f, position.y - height * 1.45f);
+		setPosition(position.x - width * 0.5f, position.y - height * 1.05f);
 		physics_object.set_x_speed(-(physics_object.get_x_speed() - extra_speed));
 		physics_object.set_y_speed(-( physics_object.get_y_speed() ));
 
 	} else if (physics_object.get_y_speed() < 0 && physics_object.get_x_speed() < 0){
-		setPosition(position.x + width * 0.5f, position.y + height * 1.45f);
+		setPosition(position.x + width * 0.5f, position.y + height * 1.05f);
 		physics_object.set_y_speed(-( physics_object.get_y_speed() ));
 
 	} else if (physics_object.get_y_speed() < 0 && physics_object.get_x_speed() > 0){
-		setPosition(position.x - width * 0.5f, position.y + height * 1.45f);
+		setPosition(position.x - width * 0.5f, position.y + height * 1.05f);
 		physics_object.set_y_speed(-( physics_object.get_y_speed() ));
 	}
-	std::cout << " NORGE" << std::endl;
 }
