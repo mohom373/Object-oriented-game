@@ -16,7 +16,6 @@ public:
 	void update() override;
 	void collision(Play_State &play_state) override;
 private:
-	int points{};
 };
 
 

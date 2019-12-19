@@ -16,9 +16,17 @@
 Play_State::Play_State()
 {}
 
-Play_State::~Play_State() {
+Play_State::~Play_State()  {
 
-		delete power_up_map[TRIPLE_BALL_KEY];
+		//delete power_up_map[TRIPLE_BALL_KEY];
+		for (auto &x : power_up_map) {
+			delete x.second;
+		}
+		ball_container.clear();
+		point_zone_container.clear();
+		entity.clear();
+		dead_zone = nullptr;
+		player = nullptr;
 		//power_up_map[Triple_Ball] = nullptr;
 
 }
@@ -30,6 +38,7 @@ void Play_State::start_game(){
 	w.setFramerateLimit(60);
 
 	create_map();
+	points = 0;
 	lives = 3;
 
 	sf::Clock clock{};
@@ -110,14 +119,6 @@ void Play_State::check_all_collision(std::vector<std::shared_ptr<Ball>> &ball_co
 	}
 }
 
-int Play_State::get_lives() {
-	return lives;
-}
-
-void Play_State::set_lives(int l) {
-	if(ball_container.size() > 1) {return;}
-	this->lives = l;
-}
 
 void Play_State::render(sf::RenderWindow &w, const std::vector<std::shared_ptr<Entity>> &ent) {
 	for (auto &e : ent ) {
@@ -227,5 +228,21 @@ void Play_State::create_map(){
 	}
 }
 
+int Play_State::get_points() {
+	return points;
+}
+
+void Play_State::set_points(int p) {
+	this->points += p;
+}
+
+int Play_State::get_lives() {
+	return lives;
+}
+
+void Play_State::set_lives(int l) {
+	if(ball_container.size() > 1) {return;}
+	this->lives = l;
+}
 
 

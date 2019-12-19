@@ -2,7 +2,6 @@
 // Created by hamod on 05/12/2019.
 //
 
-#include <iostream>
 #include "Dead_Zone.h"
 #include "Play_State.h"
 

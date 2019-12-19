@@ -36,6 +36,8 @@ public:
 	int get_lives(); // Getter for lives
 	void set_lives(int l); // Setter for lives
 
+	int get_points();
+	void set_points(int p);
 
 private:
 	std::shared_ptr<Player> player{};
@@ -47,7 +49,9 @@ private:
 
 	std::map<std::string, Power_Up*> power_up_map;
 
+	int points{};
 	int lives{};
+
 
 	void create_ball();
 	void remove_balls(std::vector<int> &vector);
