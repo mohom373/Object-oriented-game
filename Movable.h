@@ -11,12 +11,20 @@
 
 class Movable {
 public:
+	/**
+	 * Constructor for Movable class
+	 * @param phys_obj
+	 */
 	Movable(Physics_Object phys_obj): physics_object{phys_obj} {};
+
+	/**
+	 * Creates movement of object
+	 * @param position
+	 */
 	virtual void movement(sf::Vector2f &position ) = 0;
 
 protected:
-	Physics_Object physics_object;
-
+	Physics_Object physics_object{};
 };
 
 

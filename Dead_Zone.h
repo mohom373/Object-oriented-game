@@ -7,19 +7,21 @@
 
 
 #include <SFML/Graphics.hpp>
-#include "Stationary.h"
 #include "Entity.h"
 
 class Dead_Zone : public Entity{
 public:
+	/**
+	 * DeadZone constructor
+	 * @param pos
+	 * @param c
+	 */
 	Dead_Zone(sf::Vector2f pos, sf::Color c);
 	~Dead_Zone() override = default;
 
 	void update() override;
 	void collision(Play_State &play_state) override;
-
 private:
-
 };
 
 

@@ -23,7 +23,6 @@ void Ball::update() {
 
 	this->movement(position);
 	this->handle_collision(position);
-	//this->setPosition(position);
 }
 
 void Ball::movement(sf::Vector2f &position) {
@@ -61,11 +60,9 @@ void Ball::handle_collision(sf::Vector2f &position) {
 void Ball::collision(Play_State &play_state) {
 	auto position = getPosition();
 	if (physics_object.get_y_speed() > 0 && physics_object.get_x_speed() < 0) {
-
 		setPosition(position.x + width * 0.5f , position.y - height * 1.05f);
 		physics_object.set_x_speed(-( physics_object.get_x_speed() - extra_speed ));
 		physics_object.set_y_speed(-( physics_object.get_y_speed()  ));
-
 
 	} else if (physics_object.get_y_speed() > 0 && physics_object.get_x_speed() > 0){
 		setPosition(position.x - width * 0.5f, position.y - height * 1.05f);

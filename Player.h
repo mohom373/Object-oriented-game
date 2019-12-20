@@ -14,10 +14,15 @@ class Play_State;
 
 class Player : public Movable, public Entity {
 public:
+	/**
+	 * Constructor for Player class
+	 * @param pos
+	 * @param c
+	 */
 	Player(sf::Vector2f pos, sf::Color c);
 	Player(const Player&) = delete;
 	Player&operator=(const Player&) = delete;
-	~Player() = default;
+	~Player() override = default;
 
 	void update() override;
 	void collision(Play_State &play_state) override;

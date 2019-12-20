@@ -4,11 +4,9 @@
 
 #include "Randomizer.h"
 
-Randomizer::Randomizer() :
-	device_(), engine_(device_())
+Randomizer::Randomizer()
+	: device_(), engine_(device_())
 	{}
-
-
 
 int Randomizer::rnd(int a, int b) {
 	std::uniform_int_distribution<int> uni_dist(a, b);

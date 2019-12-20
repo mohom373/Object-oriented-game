@@ -24,5 +24,4 @@ void Physics_Object::set_x_speed(float x_sp) {
 
 void Physics_Object::set_y_speed(float y_sp) {
 	this->y_speed = y_sp;
-
 }

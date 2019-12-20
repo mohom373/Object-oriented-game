@@ -13,8 +13,6 @@ void Player::update() {
 	sf::Vector2f position = getPosition();
 
 	this->movement(position);
-	setPosition(position);
-
 }
 
 void Player::movement(sf::Vector2f &position) {
@@ -30,6 +28,7 @@ void Player::movement(sf::Vector2f &position) {
 		 (position.x <= WINDOW_WIDTH-width)) {
 		position.x += physics_object.get_x_speed();
 	}
+	setPosition(position);
 }
 
 void Player::collision(Play_State &play_state) {

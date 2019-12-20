@@ -2,7 +2,6 @@
 // Created by hamod on 05/12/2019.
 //
 
-#include <iostream>
 #include "Triple_Ball.h"
 #include "Play_State.h"
 #include "Constants.h"
@@ -16,11 +15,10 @@ void Triple_Ball::update() {
 }
 
 void Triple_Ball::collision(Play_State &play_state) {
-
-	//std::cout << "TRipel effetct "<< std::endl;
+	// Calls triple_ball_effect method from playstate
 	play_state.triple_ball_effect();
 
+	// Remove power up after activation
 	play_state.remove_power_up(TRIPLE_BALL_KEY);
-
 }
 

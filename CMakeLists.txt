@@ -14,11 +14,9 @@ foreach(i ${SFML_MODULES})
 endforeach(i)
 # Ange källfiler , lägg till de filer som ni behöver!
 set(SOURCE_FILES main.cpp
-        State.cpp State.h
         Play_State.cpp Play_State.h
         Entity.cpp Entity.h
-        Movable.cpp Movable.h
-        Stationary.cpp Stationary.h
+        Movable.h
         Ball.cpp Ball.h
         Player.cpp Player.h
         Point_Zone.cpp Point_Zone.h

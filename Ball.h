@@ -6,16 +6,24 @@
 #define BALLGAME_BALL_H
 
 
-//#include "Play_State.h"
 #include "Entity.h"
 #include "Movable.h"
 
 class Play_State;
 
+/**
+ * Ball inherits from Movable and Entity.
+ */
 class Ball : public Movable, public Entity{
 public:
+	/**
+	 * Constructor for Ball, uses a SFML Vector for position and SMLF Color for color
+	 *
+	 * @param pos
+	 * @param c
+	 */
 	Ball(sf::Vector2f pos, sf::Color c);
-	~Ball() = default;
+	~Ball() override = default;
 
 
 	void update() override ;
@@ -26,9 +34,7 @@ private:
 	void movement(sf::Vector2f &position) override;
 
 	int rand_direction_decider{};
-
 	float extra_speed{- 3.5f};
-
 };
 
 

@@ -19,24 +19,72 @@
 
 class Play_State : public Power_Up_Interface{
 public:
-	//Play_State() = default; // Default constructor
-	//Play_State(sf::RenderWindow &w);
 	Play_State();
 	~Play_State();
 
-	void start_game(); // Start game loop
-	void update(const std::vector<std::shared_ptr<Entity>> &ent); // Update game field
+	/**
+	 * Starts the game loop
+	 */
+	void start_game();
 
-	void add_entity(const std::shared_ptr<Entity> &new_entity); // Add entity to game field
-	void check_all_collision(std::vector<std::shared_ptr<Ball>> &b); // Check collision between entities
-	void render(sf::RenderWindow &w, const std::vector<std::shared_ptr<Entity>> &ent); // Draw entities
-	void triple_ball_effect() override; // Activate triple ball effect
-	void remove_power_up(std::string key); // Remove power up
+	/**
+	 * Updates the game field
+	 * @param ent
+	 */
+	void update(const std::vector<std::shared_ptr<Entity>> &ent);
 
-	int get_lives(); // Getter for lives
-	void set_lives(int l); // Setter for lives
+	/**
+	 * Adds entity to game field
+	 * @param new_entity
+	 */
+	void add_entity(const std::shared_ptr<Entity> &new_entity);
 
+	/**
+	 * Checks collision between entities
+	 * @param b
+	 */
+	void check_all_collision(std::vector<std::shared_ptr<Ball>> &b);
+
+	/**
+	 * Draws entities onto the game field
+	 * @param w
+	 * @param ent
+	 */
+	void render(sf::RenderWindow &w, const std::vector<std::shared_ptr<Entity>> &ent);
+
+	/**
+	 * Activate the effect of a triple ball power-up
+	 */
+	void triple_ball_effect() override;
+
+	/**
+	 * Removes power up based on a key
+	 * @param key
+	 */
+	void remove_power_up(std::string key);
+
+	/**
+	 * Getter for lives
+	 * @return an integer that equals amount of lives
+	 */
+	int get_lives();
+
+	/**
+	 * Setter for lives
+	 * @param l
+	 */
+	void set_lives(int l);
+
+	/**
+	 * Getter for points
+	 * @return an integer that equals amount of points
+	 */
 	int get_points();
+
+	/**
+	 * Setter for points
+	 * @param p
+	 */
 	void set_points(int p);
 
 private:
@@ -52,13 +100,27 @@ private:
 	int points{};
 	int lives{};
 
-
+	/**
+	 * Creates an instance of ball
+	 */
 	void create_ball();
+
+	/*
+	 * Creates the game field
+	 */
+	void create_map();
+
+	/**
+	 * Removes balls from game field
+	 * @param vector
+	 */
 	void remove_balls(std::vector<int> &vector);
 
+	/**
+	 * Spawns a power up after a set amount of time
+	 * @param clock
+	 */
 	void spawn_power_up(sf::Clock &clock);
-
-	void create_map();
 };
 
 

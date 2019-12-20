@@ -15,6 +15,9 @@ void Point_Zone::update() {
 }
 
 void Point_Zone::collision(Play_State &play_state) {
+	// Add points after collision
 	play_state.set_points( 50);
+
+	// Display points
 	std::cout << play_state.get_points() << std::endl;
 }

@@ -17,8 +17,6 @@ Play_State::Play_State()
 {}
 
 Play_State::~Play_State()  {
-
-		//delete power_up_map[TRIPLE_BALL_KEY];
 		for (auto &x : power_up_map) {
 			delete x.second;
 		}
@@ -27,8 +25,6 @@ Play_State::~Play_State()  {
 		entity.clear();
 		dead_zone = nullptr;
 		player = nullptr;
-		//power_up_map[Triple_Ball] = nullptr;
-
 }
 
 void Play_State::start_game(){
@@ -37,6 +33,7 @@ void Play_State::start_game(){
 	w.setVerticalSyncEnabled(true);
 	w.setFramerateLimit(60);
 
+	// Create game field
 	create_map();
 	points = 0;
 	lives = 3;
@@ -53,9 +50,9 @@ void Play_State::start_game(){
 
 		// Update program logic here
 		this->check_all_collision(ball_container);
-
 		this->update(entity);
 		this->spawn_power_up(clock);
+
 		if (lives < 1) {
 			w.close();
 		}
@@ -74,9 +71,12 @@ void Play_State::add_entity(const std::shared_ptr<Entity> &new_entity) {
 
 void Play_State::update(const std::vector<std::shared_ptr<Entity>> &ent) {
 
+	// Loop through ball vector and update each ball
 	for (auto &b : ball_container) {
 		b->update();
 	}
+
+	// Loop through entity vector and update each entity
 	for (auto &e : ent) {
 		e->update();
 	}
@@ -84,16 +84,21 @@ void Play_State::update(const std::vector<std::shared_ptr<Entity>> &ent) {
 
 void Play_State::check_all_collision(std::vector<std::shared_ptr<Ball>> &ball_container) {
 
+	// Loop through entity vector
 	for (auto & ent : entity) {
 		std::vector<int> erase_index;
+
+		// Loop through ball vector
 		for (int i = 0; i < ball_container.size(); ++i) {
 			auto ball = ball_container[i];
 
+			//  Call collision method if ball and entity intersect
 			if (ent != dead_zone && ent->getGlobalBounds().intersects(ball->getGlobalBounds())) {
 				ball->collision(*this);
 				ent->collision(*this);
 			}
 
+			//  Call collision method if ball and deadzone intersect
 			if (dead_zone->getGlobalBounds().intersects(ball->getGlobalBounds())) {
 				erase_index.push_back(i);
 				dead_zone->collision(*this);
@@ -103,9 +108,11 @@ void Play_State::check_all_collision(std::vector<std::shared_ptr<Ball>> &ball_co
 		this->remove_balls(erase_index);
 	}
 
+	// Loop through power-up map
 	for (auto &p  : power_up_map) {
 		if(p.second == nullptr) { continue; }
 		for (auto &b : ball_container) {
+			// Call collision method if ball intersects with power-up object
 			if (p.second->getGlobalBounds().intersects(b->getGlobalBounds())) {
 				b->collision(*this);
 				p.second->collision(*this);
@@ -114,6 +121,7 @@ void Play_State::check_all_collision(std::vector<std::shared_ptr<Ball>> &ball_co
 		}
 	}
 
+	// Create ball if vector is empty
 	if (ball_container.empty()) {
 		create_ball();
 	}
@@ -121,14 +129,18 @@ void Play_State::check_all_collision(std::vector<std::shared_ptr<Ball>> &ball_co
 
 
 void Play_State::render(sf::RenderWindow &w, const std::vector<std::shared_ptr<Entity>> &ent) {
+
+	// Draw each entity
 	for (auto &e : ent ) {
 		w.draw(*e.get());
 	}
 
+	// Draw each ball in vector
 	for (auto &b : ball_container) {
 		w.draw(*b.get());
 	}
 
+	// Draw each power-up object
 	for(auto &p: power_up_map) {
 		if(p.second == nullptr) {continue;}
 		w.draw(*p.second);
@@ -164,7 +176,6 @@ void Play_State::remove_balls(std::vector<int> &vector) {
 }
 
 void Play_State::spawn_power_up(sf::Clock& clock) {
-
 	auto randomizer = Randomizer();
 	float random_x = randomizer.rnd(50.0, WINDOW_WIDTH - 200.0);
 	float random_y = randomizer.rnd(200.0, WINDOW_HEIGHT - 500.0);
@@ -180,10 +191,14 @@ void Play_State::spawn_power_up(sf::Clock& clock) {
 }
 
 void Play_State::create_map(){
-	std::string file_name = "../map.txt";
+	std::string file_name = "map.txt";
 	std::ifstream infile{file_name};
 	if (!infile) {
+		std::cerr << "***********************************************" << std::endl;
 		std::cerr << "Could not open: " << file_name << " " << std::endl;
+		std::cerr << "Please check if the " << file_name << "\nfile is in the same folder as the executable file!!"
+				  << std::endl;
+		std::cerr << "***********************************************" << std::endl;
 	}
 
 	std::string line{};

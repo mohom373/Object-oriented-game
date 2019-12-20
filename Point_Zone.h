@@ -10,8 +10,15 @@
 
 class Point_Zone : public Entity{
 public:
+	/**
+	 * PointZone constructor
+	 * @param pos
+	 * @param c
+	 * @param w
+	 * @param h
+	 */
 	Point_Zone(sf::Vector2f pos, sf::Color c, int w, int h);
-	~Point_Zone() = default;
+	~Point_Zone() override = default;
 
 	void update() override;
 	void collision(Play_State &play_state) override;
